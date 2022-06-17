@@ -3,11 +3,28 @@ const readFiles = require('./readFiles');
 
 const router = express.Router();
 
+function validLoginMiddleware(req, res, next) {
+  const { email, password } = req.body;
+
+  const regex = /\S+@\S+\.\S+/;
+  if(!regex.test(email)) {
+    res.status(400).json({ message: 'O "email" deve ter o formato "email@email.com"' });
+    return;
+  }
+
+  if(password.length < 6) {
+    res.status(400).json({ message: "O campo password deve ter pelo menos 6 caracteres"});
+    return;
+  }
+
+  next();
+}
+
 router.get('/login', (req, res) => {
   res.status(200).json({ message: 'Olá, jovem!'});
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', validLoginMiddleware, async (req, res) => {
   const { email, password } = req.body;
 
   try {
