@@ -42,14 +42,14 @@ router.post('/sign-up', validBodyMiddleware, async (req, res) => {
     const usersJson = JSON.stringify(users);
     
     fs.writeFile('./src/data/users.json', usersJson);
-    res.status(201).json(user);
+    res.sendStatus(201);
     return;
   }
   catch (err) {
     const userJson = JSON.stringify([user]);
   
     fs.writeFile('./src/data/users.json', userJson);
-    res.status(201).json(user);
+    res.sendStatus(201);
   }
 
 })
