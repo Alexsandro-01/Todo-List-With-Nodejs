@@ -58,10 +58,84 @@ async function recoverIndexMiddleware(req, res, next) {
   }
 }
 
-router.get('/tasks', (req, res, next) => {
+// DELETE
+router.delete('/tasks/:id', async (req, res) => {
+  const { id } = req.params;
+  const userId = req.headers.authorization;
+  
+  try {
+    const tasks = await readFiles('./src/data/tasks.json');
+    
+    const index = tasks.findIndex((value) => value.id === Number(id) && value.userId === userId);
+
+    if (index === -1) {
+      res.status(400).json({ message: "Tarefa não encontrada"});
+      return;
+    };
+      
+    tasks.splice(index, 1);
+
+    const updatedTasksJson = JSON.stringify(tasks);
+    fs.writeFile('./src/data/tasks.json', updatedTasksJson);
+
+    res.sendStatus(202);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+
+});
+
+// UPDATE
+router.put('/tasks/:id', async (req, res) => {
+  const { id } = req.params;
+  const { task } = req.body;
+  const userId = req.headers.authorization;
+  
+  try {
+    const tasks = await readFiles('./src/data/tasks.json');
+    
+    const index = tasks.findIndex((value) => value.id === Number(id) && value.userId === userId);
+
+    if (index === -1) {
+      res.status(400).json({ message: "Tarefa não encontrada"});
+      return;
+    }
+  
+    const updatedTask = { ...tasks[index], task, updatedAt: new Date() };
+    
+    tasks[index] = updatedTask;
+
+    const updatedTasksJson = JSON.stringify(tasks);
+    fs.writeFile('./src/data/tasks.json', updatedTasksJson);
+    res.sendStatus(201);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+
+})
+
+// READ
+router.get('/tasks', async (req, res) => {
+  const userId = req.headers.authorization;
+
+  try {
+    const tasks = await readFiles('./src/data/tasks.json');
+
+    const userTasks = tasks.filter((value) => value.userId === userId);
+
+    if (!userTasks) {
+      res.status(404).json({ message: "Nenhuma tarefa encontrada" });
+      return;
+    }
+
+    res.status(200).json(userTasks);
+  } catch (error) {
+    res.status(404).json({ message: "Nenhuma tarefa encontrada" });
+  }
   res.sendStatus(200);
 });
 
+// CREAT
 router.post('/tasks', validTaskMiddleware, recoverIndexMiddleware, async (req, res) => {
   const data = req.body;
   const index = req.index;
