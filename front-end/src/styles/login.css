@@ -1,0 +1,42 @@
+.login-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-page section {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 24px;
+}
+
+.login-page section h1 {
+  font-size: 2.5em;
+}
+
+.login-page section form {
+  width: 100%;
+  padding: 12px 0;
+}
+
+.login-page form div {
+  padding: 12px 0;
+}
+
+.login-page form input {
+  width: 100%;
+  border: solid 2px #222;
+  outline-color: #05b0ff;
+  border-radius: 5px;
+  font-size: 1.2em;
+  padding: 4px 8px;
+}
+
+.login-page form button {
+  width: 100%;
+}
