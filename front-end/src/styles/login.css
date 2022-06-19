@@ -28,14 +28,14 @@
   padding: 12px 0;
 }
 
-.login-page form input {
+/* .login-page form input {
   width: 100%;
   border: solid 2px #222;
   outline-color: #05b0ff;
   border-radius: 5px;
   font-size: 1.2em;
   padding: 4px 8px;
-}
+} */
 
 .login-page form button {
   width: 100%;

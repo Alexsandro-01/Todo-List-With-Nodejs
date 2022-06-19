@@ -1,0 +1,44 @@
+.tasks-page header {
+  display: flex;
+  padding: 24px;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: -2px 0 6px #555;
+}
+
+.tasks-page main .new-task {
+  padding: 12px 24px;
+  margin-top: 16px;
+  /* border: solid 1px; */
+}
+
+.tasks-page main .new-task input {
+  width: 85%;
+}
+
+.tasks-page main .new-task button {
+  width: 15%;
+  padding: 6px;
+}
+
+.tasks-page ul {
+  /* border: solid 1px; */
+  padding: 12px 24px;
+}
+
+.tasks-page main ul li input {
+  width: 15%;
+  /* margin-right: 12px; */
+}
+
+.tasks-page main ul li {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #999;
+  font-size: 1.2em;
+}
+
+.tasks-page main ul li label {
+  width: 85%;
+}
