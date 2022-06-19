@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { requestLogin } from '../services/services';
 import '../styles/login.css';
-
-function stopSubmit(event) {
-  event.preventDefault();
-  console.log('Barrei o submit');
-}
 
 function Login() {
   const [loginState, setLoginState] = useState({
@@ -12,6 +9,12 @@ function Login() {
     password: '',
     disabled: true
   });
+
+  const [warning, setWarning] = useState({
+    validUser: true
+  });
+
+  const navigate = useNavigate();
 
   function validation() {
     const { email, password } = loginState;
@@ -27,6 +30,33 @@ function Login() {
   }
 
   const { email, password, disabled } = loginState;
+
+  function saveUser(user) {
+    const userJson = JSON.stringify(user);
+    localStorage.setItem('taskUser', userJson);
+
+    navigate('/tasks');
+  }
+  
+  async function stopSubmit(event) {
+    event.preventDefault();
+    
+    const data = {
+      email,
+      password
+    }
+
+    const user = await requestLogin(data);
+
+    if (user.message) {
+      setWarning({ validUser: false })
+    }
+    else {
+      setWarning({ validUser: true })
+      saveUser(user);
+    }
+  }
+
 
   useEffect(() => {
     validation();
@@ -57,6 +87,11 @@ function Login() {
               }}
             />
           </div>
+            {
+              !warning.validUser && (
+                <p className='warning'>Usuário não encontrado, verifique os seus dados!</p>
+              )
+            }
           <div>
             <button
               type='submit'

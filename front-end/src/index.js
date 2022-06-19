@@ -7,6 +7,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import Tasks from './pages/Tasks';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,6 +18,7 @@ root.render(
           <Route path='/' element={ <App /> } />
           <Route path='/login' element={ <Login /> } />
           <Route path='/sign-up' element={ <SignUp /> } />
+          <Route path='/tasks' element={ <Tasks /> } />
         </Routes>
       </BrowserRouter>
     </AppProvider>

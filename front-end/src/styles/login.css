@@ -40,3 +40,7 @@
 .login-page form button {
   width: 100%;
 }
+
+.login-page .warning {
+  color: red;
+}
