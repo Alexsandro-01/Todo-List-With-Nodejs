@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ffcb0d77ddd89d18",
+    "name": "Alexsandro",
+    "email": "alex@hotmail.com",
+    "password": "ale4503",
+    "createdAt": "2022-06-17T19:29:37.861Z"
+  },
+  {
+    "id": "e6aaf88bb62f63e3",
+    "name": "Serana",
+    "email": "serena@gmail.com",
+    "password": "serena123",
+    "createdAt": "2022-06-17T20:35:32.002Z"
+  }
+]

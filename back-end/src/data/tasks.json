@@ -1,0 +1,26 @@
+[
+  {
+    "id": 4,
+    "userId": "ffcb0d77ddd89d18",
+    "task": "Instalar a irrigação!",
+    "status": "pendente",
+    "createdAt": "2022-06-18T18:06:39.673Z",
+    "updatedAt": ""
+  },
+  {
+    "id": 5,
+    "userId": "e6aaf88bb62f63e3",
+    "task": "Tarefa da serena!",
+    "status": "pendente",
+    "createdAt": "2022-06-18T18:08:21.389Z",
+    "updatedAt": ""
+  },
+  {
+    "id": 8,
+    "userId": "ffcb0d77ddd89d18",
+    "task": "Chegou o verão Alex!",
+    "status": "pendente",
+    "createdAt": "2022-06-18T18:09:29.835Z",
+    "updatedAt": "2022-06-18T18:10:37.401Z"
+  }
+]
