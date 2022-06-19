@@ -24,6 +24,10 @@ button {
   font-weight: 700;
 }
 
+button:disabled {
+  background-color: #888;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
