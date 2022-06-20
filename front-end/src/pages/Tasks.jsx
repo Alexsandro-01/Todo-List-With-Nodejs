@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { requestUserTasks } from '../services/services';
+import { requestUserTasks, reqCreateNewTask } from '../services/services';
 import { FiLogOut } from 'react-icons/fi';
 import '../styles/tasks.css';
 
@@ -8,6 +8,7 @@ import '../styles/tasks.css';
 function Tasks() {
   const [user, setUser] = useState({});
   const [userTasks, setUserTasks] = useState([]);
+  const [inputNewtask, setInputNewtask] = useState('');
 
   const navigate = useNavigate();
   
@@ -19,6 +20,26 @@ function Tasks() {
   async function receivedTasks(id) {
     const resposeTasks = await requestUserTasks(id);
     setUserTasks(resposeTasks);
+  }
+
+  function createNewtask(event) {
+    event.preventDefault();
+
+    const newTask = {
+      "task": inputNewtask,
+      "status": "pendente"
+    }
+
+    const promise = new Promise((resolve, reject) => {
+    try {
+      resolve(reqCreateNewTask(newTask, user.id))
+    } catch (error) {
+      reject(error.message);
+    }
+    });
+
+    setInputNewtask('');
+    return promise;
   }
 
   
@@ -57,10 +78,25 @@ function Tasks() {
         </div>
       </header>
       <main>
-        <div className='new-task'>
-          <input type="text" placeholder='new task' />
-          <button>+</button>
-        </div>
+        <form>
+          <div className='new-task'>
+            <input
+              type="text"
+              placeholder='new task'
+              value={ inputNewtask }
+              onChange={ ({ target }) => setInputNewtask(target.value)}
+            />
+            <button
+              type='submit'
+              onClick={ (event) => {
+                createNewtask(event)
+                  .then(() => receivedTasks(user.id))
+              } }
+            >
+              +
+            </button>
+          </div>
+        </form>
         <section>
           <ul>
             {

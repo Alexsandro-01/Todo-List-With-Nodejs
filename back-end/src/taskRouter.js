@@ -153,7 +153,7 @@ router.post('/tasks', validTaskMiddleware, recoverIndexMiddleware, async (req, r
 
     fs.writeFile('./src/data/tasks.json', tasksJson);
 
-    res.sendStatus(201);
+    res.status(201).json({ message: 'Ok'});
     return;
     // se tasks.json não existe
   } catch (error) {
@@ -161,7 +161,7 @@ router.post('/tasks', validTaskMiddleware, recoverIndexMiddleware, async (req, r
 
     fs.writeFile('./src/data/tasks.json', tasksJson);
 
-    res.sendStatus(201);
+    res.status(201).json({ message: 'Ok'});
   }
 
 });
