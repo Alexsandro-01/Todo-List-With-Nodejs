@@ -1,27 +1,22 @@
-import './styles/App.css';
-import { useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AppProvider from './context/AppProvider';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import Tasks from './pages/Tasks';
 
 function App() {
-  const navigate = useNavigate();
   return (
-    <main className='home'>
-      <h1>Welcome to Task Force</h1>
-      <h4>Your to do app</h4>
-      <section>
-        <button
-          type='button'
-          onClick={ () => navigate('/login')}
-        >
-          Sign In
-        </button>
-        <button
-          type='button'
-          onClick={ () => navigate('/sign-up') }
-        >
-          Sign Up
-        </button>
-      </section>
-    </main>
+    <AppProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={ <Home /> } />
+          <Route path='/login' element={ <Login /> } />
+          <Route path='/sign-up' element={ <SignUp /> } />
+          <Route path='/tasks' element={ <Tasks /> } />
+        </Routes>
+      </BrowserRouter>
+    </AppProvider>
   );
 }
 
