@@ -38,7 +38,6 @@ function Tasks() {
 
   useEffect(() => {
     isLoged();
-    receivedTasks();
   }, []);
 
   useEffect(() => {
@@ -70,6 +69,11 @@ function Tasks() {
                   </label>
                 </li>
               ))
+            }
+            {
+              !warning.tasksExist && (
+                <li>Nenhuma tarefa encontrada</li>
+              )
             }
           </ul>
         </section>
