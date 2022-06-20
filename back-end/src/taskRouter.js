@@ -117,7 +117,6 @@ router.put('/tasks/:id', async (req, res) => {
 // READ
 router.get('/tasks', async (req, res) => {
   const userId = req.headers.authorization;
-
   try {
     const tasks = await readFiles('./src/data/tasks.json');
 
@@ -132,7 +131,6 @@ router.get('/tasks', async (req, res) => {
   } catch (error) {
     res.status(404).json({ message: "Nenhuma tarefa encontrada" });
   }
-  res.sendStatus(200);
 });
 
 // CREAT
