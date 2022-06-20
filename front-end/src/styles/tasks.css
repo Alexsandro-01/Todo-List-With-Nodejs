@@ -6,6 +6,20 @@
   box-shadow: -2px 0 6px #555;
 }
 
+.tasks-page header div {
+  display: flex; 
+  align-items: center;
+}
+
+.tasks-page header button {
+  background-color: transparent;
+  padding: 4px;
+  align-items: center;
+  line-height: 100%;
+  margin-left: 8px;
+  color: #222;
+}
+
 .tasks-page main .new-task {
   padding: 12px 24px;
   margin: 16px 0;

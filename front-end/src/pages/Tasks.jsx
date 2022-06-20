@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { requestUserTasks } from '../services/services';
+import { FiLogOut } from 'react-icons/fi';
 import '../styles/tasks.css';
 
 
@@ -9,40 +10,51 @@ function Tasks() {
   const [userTasks, setUserTasks] = useState([]);
 
   const navigate = useNavigate();
-  const logedUser = localStorage.getItem('taskUser');
+  
+  function logout() {
+    localStorage.removeItem('taskUser');
+    navigate('/');
+  }
 
+  async function receivedTasks(id) {
+    const resposeTasks = await requestUserTasks(id);
+    setUserTasks(resposeTasks);
+  }
+
+  
   useEffect(() => {
     function isLoged() {
+      const logedUser = localStorage.getItem('taskUser');
       if (!logedUser) {
         navigate('/login');
       }
       else {
         const userObj = JSON.parse(logedUser);
         setUser(userObj);
+        receivedTasks(userObj.id);
       }
     }
 
     isLoged();
-  }, [logedUser, navigate]);
-
-  useEffect(() => {
-    async function receivedTasks() {
-      const resposeTasks = await requestUserTasks(user.id);
-      
-      setUserTasks(resposeTasks);
-    }
-
-    receivedTasks();
-  }, [user]);
+  }, [navigate]);
 
   const { name } = user;
   return (
     <div className='tasks-page'>
       <header>
         <h2>Task Force</h2>
-        <p>
-          Olá <strong>{ name }</strong>
-        </p>
+        <div>
+          <p>
+            Olá, <strong>{ name }</strong>
+          </p>
+          <button
+            onClick={() =>  logout()}
+          >
+            <abbr title='logout'>
+              <FiLogOut />
+            </abbr>
+          </button>
+        </div>
       </header>
       <main>
         <div className='new-task'>
