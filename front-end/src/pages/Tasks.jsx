@@ -7,40 +7,31 @@ import '../styles/tasks.css';
 function Tasks() {
   const [user, setUser] = useState({});
   const [userTasks, setUserTasks] = useState([]);
-  const [warning, setWarning] = useState({
-    tasksExist: true
-  })
 
   const navigate = useNavigate();
   const logedUser = localStorage.getItem('taskUser');
 
-  function isLoged() {
-    if (!logedUser) {
-      navigate('/login');
+  useEffect(() => {
+    function isLoged() {
+      if (!logedUser) {
+        navigate('/login');
+      }
+      else {
+        const userObj = JSON.parse(logedUser);
+        setUser(userObj);
+      }
     }
-    else {
-      const userObj = JSON.parse(logedUser);
-      setUser(userObj);
-    }
-  }
 
-  async function receivedTasks() {
-    const resposeTasks = await requestUserTasks(user.id);
-    if (resposeTasks.message) {
-      setWarning({ tasksExist: false });
-    }
-    else {
-      setWarning({ tasksExist: true });
+    isLoged();
+  }, [logedUser, navigate]);
+
+  useEffect(() => {
+    async function receivedTasks() {
+      const resposeTasks = await requestUserTasks(user.id);
+      
       setUserTasks(resposeTasks);
     }
-  }
 
-
-  useEffect(() => {
-    isLoged();
-  }, []);
-
-  useEffect(() => {
     receivedTasks();
   }, [user]);
 
@@ -71,7 +62,7 @@ function Tasks() {
               ))
             }
             {
-              !warning.tasksExist && (
+              userTasks.length === 0 && (
                 <li>Nenhuma tarefa encontrada</li>
               )
             }
