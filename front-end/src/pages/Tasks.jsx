@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { requestUserTasks } from '../services/services';
 import '../styles/tasks.css';
 
 
 function Tasks() {
   const [user, setUser] = useState({});
+  const [userTasks, setUserTasks] = useState([]);
+  const [warning, setWarning] = useState({
+    tasksExist: true
+  })
+
   const navigate = useNavigate();
   const logedUser = localStorage.getItem('taskUser');
 
@@ -18,9 +24,27 @@ function Tasks() {
     }
   }
 
+  async function receivedTasks() {
+    const resposeTasks = await requestUserTasks(user.id);
+    if (resposeTasks.message) {
+      setWarning({ tasksExist: false });
+    }
+    else {
+      setWarning({ tasksExist: true });
+      setUserTasks(resposeTasks);
+    }
+  }
+
+
   useEffect(() => {
     isLoged();
+    receivedTasks();
   }, []);
+
+  useEffect(() => {
+    receivedTasks();
+  }, [user]);
+
   const { name } = user;
   return (
     <div className='tasks-page'>
@@ -37,30 +61,16 @@ function Tasks() {
         </div>
         <section>
           <ul>
-            <li>
-              <input type="checkbox" id="1" />
-              <label htmlFor="1">
-                Tarefa 1
-              </label>
-            </li>
-            <li>
-              <input type="checkbox" id="2" />
-              <label htmlFor="2">
-                Tarefa 1
-              </label>
-            </li>
-            <li>
-              <input type="checkbox" id="3" />
-              <label htmlFor="3">
-                Tarefa 1
-              </label>
-            </li>
-            <li>
-              <input type="checkbox" id="4" />
-              <label htmlFor="4">
-                Tarefa 1
-              </label>
-            </li>
+            {
+              userTasks.length > 0 && userTasks.map((value) => (
+                <li key={ value.id }>
+                  <input type="checkbox" id={ value.id } />
+                  <label htmlFor={ value.id }>
+                    { value.task }
+                  </label>
+                </li>
+              ))
+            }
           </ul>
         </section>
       </main>

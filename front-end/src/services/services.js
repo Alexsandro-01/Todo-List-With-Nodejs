@@ -15,4 +15,19 @@ export async function requestLogin(data) {
   const response = await fetch(url, obj);
   const user = await response.json();
   return user;
-}
+};
+
+export async function requestUserTasks(userId) {
+  const url = 'http://localhost:2035/tasks';
+  const obj = {
+    method: 'GET',
+    headers: {
+      Authorization: userId
+    }
+  }
+
+  const response = await fetch(url, obj);
+  const user = await response.json();
+  return user;
+};
+
