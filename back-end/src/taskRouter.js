@@ -150,18 +150,20 @@ router.post('/tasks', validTaskMiddleware, recoverIndexMiddleware, async (req, r
 
     tasks.push(newTask);
     const tasksJson = JSON.stringify(tasks);
-
+    
     fs.writeFile('./src/data/tasks.json', tasksJson);
-
-    res.status(201).json({ message: 'Ok'});
+    
+    const userTasks = tasks.filter((value) => value.userId === userId);
+    res.status(201).json(userTasks);
     return;
     // se tasks.json não existe
   } catch (error) {
     const tasksJson = JSON.stringify([newTask]);
+    // const userTasks = tasks.filter((value) => value.userId === userId);
 
     fs.writeFile('./src/data/tasks.json', tasksJson);
 
-    res.status(201).json({ message: 'Ok'});
+    res.status(201).json([newTask]);
   }
 
 });
