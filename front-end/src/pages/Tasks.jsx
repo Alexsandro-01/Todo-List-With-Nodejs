@@ -20,9 +20,10 @@ function Tasks() {
   async function receivedTasks(id) {
     const resposeTasks = await requestUserTasks(id);
     setUserTasks(resposeTasks);
+    setInputNewtask('');
   }
 
-  function createNewtask(event) {
+  async function createNewtask(event) {
     event.preventDefault();
 
     const newTask = {
@@ -30,16 +31,9 @@ function Tasks() {
       "status": "pendente"
     }
 
-    const promise = new Promise((resolve, reject) => {
-    try {
-      resolve(reqCreateNewTask(newTask, user.id))
-    } catch (error) {
-      reject(error.message);
-    }
-    });
-
+    const updatedUserTasks = await reqCreateNewTask(newTask, user.id)
+    setUserTasks(updatedUserTasks);
     setInputNewtask('');
-    return promise;
   }
 
   
@@ -90,7 +84,6 @@ function Tasks() {
               type='submit'
               onClick={ (event) => {
                 createNewtask(event)
-                  .then(() => receivedTasks(user.id))
               } }
             >
               +

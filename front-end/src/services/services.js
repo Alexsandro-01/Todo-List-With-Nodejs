@@ -25,7 +25,6 @@ export async function requestUserTasks(userId) {
       Authorization: userId
     }
   }
-
   const response = await fetch(url, obj);
   const user = await response.json();
   return user;
