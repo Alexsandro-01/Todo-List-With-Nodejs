@@ -1,0 +1,63 @@
+.tasks-page header {
+  display: flex;
+  padding: 24px;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: -2px 0 6px #555;
+}
+
+.tasks-page header div {
+  display: flex; 
+  align-items: center;
+}
+
+.tasks-page header button {
+  background-color: transparent;
+  padding: 4px;
+  align-items: center;
+  line-height: 100%;
+  margin-left: 8px;
+  color: #222;
+}
+
+.tasks-page main .new-task {
+  padding: 12px 24px;
+  margin: 16px 0;
+  /* border: solid 1px; */
+}
+
+.tasks-page main .new-task input {
+  width: 85%;
+}
+
+.tasks-page main .new-task button {
+  width: 15%;
+  padding: 6px;
+}
+
+.tasks-page section {
+  padding: 12px 24px;
+
+}
+
+.tasks-page ul {
+  /* border: solid 1px; */
+  border-radius: 5px;
+  box-shadow: 0 0 6px #999;
+}
+
+.tasks-page main ul li input {
+  width: 15%;
+  /* margin-right: 12px; */
+}
+
+.tasks-page main ul li {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  font-size: 1.2em;
+}
+
+.tasks-page main ul li label {
+  width: 85%;
+}
